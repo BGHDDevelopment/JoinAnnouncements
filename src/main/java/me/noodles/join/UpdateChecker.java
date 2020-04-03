@@ -4,11 +4,11 @@ import java.io.*;
 
 public class UpdateChecker
 {
-    public MainJoin plugin;
+    public Join plugin;
     public String version;
     
     
-    public UpdateChecker(MainJoin plugin) {
+    public UpdateChecker(Join plugin) {
         this.plugin = plugin;
         this.version = this.getLatestVersion();
     }
