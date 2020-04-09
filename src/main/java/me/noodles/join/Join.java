@@ -6,13 +6,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MainJoin extends JavaPlugin implements Listener {
+public class Join extends JavaPlugin implements Listener {
 
-	 public static MainJoin plugin;
+	 public static Join plugin;
 	    private UpdateChecker checker;
 	    
 	    public void onEnable() {
-	        MainJoin.plugin = this;
+	        Join.plugin = this;
 	        final PluginDescriptionFile VarUtilType = this.getDescription();
 	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " starting...");
 	        this.saveDefaultConfig();
@@ -29,7 +29,7 @@ public class MainJoin extends JavaPlugin implements Listener {
 	                getServer().getConsoleSender().sendMessage("------------------------");
 	                getServer().getConsoleSender().sendMessage("JoinAnnouncements is outdated!");
 	                getServer().getConsoleSender().sendMessage("Newest version: " + this.checker.getLatestVersion());
-	                getServer().getConsoleSender().sendMessage("Your version: " + MainJoin.plugin.getDescription().getVersion());
+	                getServer().getConsoleSender().sendMessage("Your version: " + Join.plugin.getDescription().getVersion());
 	                getServer().getConsoleSender().sendMessage("Please Update Here: https://www.spigotmc.org/resources/46673");
 	                getServer().getConsoleSender().sendMessage("------------------------");
 	            }
@@ -47,12 +47,12 @@ public class MainJoin extends JavaPlugin implements Listener {
 	    }
 	    
 	    @SuppressWarnings({ "unchecked", "rawtypes"})
-		public static MainJoin getPlugin() {
-	        return (MainJoin)getPlugin((Class)MainJoin.class);
+		public static Join getPlugin() {
+	        return (Join)getPlugin((Class) Join.class);
 	    }
 	    
 	    public static Plugin getPlugin2() {
-	        return (Plugin)MainJoin.plugin;
+	        return (Plugin) Join.plugin;
 	    }
 	}
 

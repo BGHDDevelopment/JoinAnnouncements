@@ -1,0 +1,5 @@
+name: JoinAnnouncements
+version: ${project.version}
+main: me.noodles.join.Join
+authors: [BGHDDevelopment]
+website: https://bghddevelopment.com/
