@@ -12,13 +12,13 @@ CheckForUpdates:
 #Enables a message in console if the plugin is outdated.
 #=======================================================
 Messages:
-  Line0: '&f=============================='
-  Line1: '&d&lWelcome to &e&lYourServerName!'
-  Line2: ''
-  Line3: '&c&lShop: &ewww.shop.com'
-  Line4: '&c&lForums: &ewww.forums.com'
-  Line5: '&c&lSupport: &ewww.support.com'
-  Line6: ''
-  Line7: '&dHope you enjoy your time here!'
-  Line8: '&f=============================='
+  - "&f=============================="
+  - "&d&lWelcome to &e&lYourServerName!"
+  - ""
+  - "&c&lShop: &ewww.shop.com"
+  - "&c&lForums: &ewww.forums.com"
+  - "&c&lSupport: &ewww.support.com"
+  - ""
+  - "&dHope you enjoy your time here!"
+  - "&f=============================="
 #=======================================================

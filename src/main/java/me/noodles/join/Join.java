@@ -1,5 +1,6 @@
 package me.noodles.join;
 
+import me.noodles.join.listeners.JoinEvent;
 import me.noodles.join.listeners.UpdateJoinEvent;
 import me.noodles.join.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -20,7 +21,7 @@ public class Join extends JavaPlugin implements Listener {
 	        this.saveDefaultConfig();
 	        this.reloadConfig();
 	        registerEvents((Plugin)this, new UpdateJoinEvent(this));
-	        registerEvents((Plugin)this, new Events());
+	        registerEvents((Plugin)this, new JoinEvent(this));
 	        registerEvents(this, this);
 	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " started!");
 	        this.setEnabled(true);
