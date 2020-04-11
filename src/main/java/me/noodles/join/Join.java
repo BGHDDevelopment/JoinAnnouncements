@@ -1,5 +1,7 @@
 package me.noodles.join;
 
+import me.noodles.join.listeners.UpdateJoinEvent;
+import me.noodles.join.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -17,27 +19,24 @@ public class Join extends JavaPlugin implements Listener {
 	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " starting...");
 	        this.saveDefaultConfig();
 	        this.reloadConfig();
-	        registerEvents((Plugin)this, new UpdateJoinEvent());
+	        registerEvents((Plugin)this, new UpdateJoinEvent(this));
 	        registerEvents((Plugin)this, new Events());
 	        registerEvents(this, this);
 	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " started!");
 	        this.setEnabled(true);
 	        this.getLogger().info("JoinAnnouncements V" + VarUtilType.getVersion() + " checking for updates...");
-	        this.checker = new UpdateChecker(this);
-	        if (this.checker.isConnected()) {
-	            if (this.checker.hasUpdate()) {
-	                getServer().getConsoleSender().sendMessage("------------------------");
-	                getServer().getConsoleSender().sendMessage("JoinAnnouncements is outdated!");
-	                getServer().getConsoleSender().sendMessage("Newest version: " + this.checker.getLatestVersion());
-	                getServer().getConsoleSender().sendMessage("Your version: " + Join.plugin.getDescription().getVersion());
-	                getServer().getConsoleSender().sendMessage("Please Update Here: https://www.spigotmc.org/resources/46673");
-	                getServer().getConsoleSender().sendMessage("------------------------");
-	            }
-	            else {
-	                getServer().getConsoleSender().sendMessage("------------------------");
-	                getServer().getConsoleSender().sendMessage("JoinAnnouncements  is up to date!");
-	                getServer().getConsoleSender().sendMessage("------------------------");            }
-	        }
+			if (getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
+				new UpdateChecker(this, 46673).getLatestVersion(remoteVersion -> {
+					getLogger().info("Checking for Updates ...");
+
+					if (getDescription().getVersion().equalsIgnoreCase(remoteVersion)) {
+						getLogger().info("No new version available");
+					} else {
+						getLogger().warning(String.format("Newest version: %s is out! You are running version: %s", remoteVersion, getDescription().getVersion()));
+						getLogger().warning("Please Update Here: http://www.spigotmc.org/resources/46673");
+					}
+				});
+			}
 	    }
 	    
 	    public static void registerEvents(final Plugin plugin, final Listener... listeners) {
