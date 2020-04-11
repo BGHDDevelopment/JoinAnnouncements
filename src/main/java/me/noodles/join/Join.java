@@ -8,58 +8,50 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Join extends JavaPlugin implements Listener {
+public class Join extends JavaPlugin {
 
-	 public static Join plugin;
-	    private UpdateChecker checker;
-	    
-	    public void onEnable() {
-	        Join.plugin = this;
-	        final PluginDescriptionFile VarUtilType = this.getDescription();
-	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " starting...");
-	        this.saveDefaultConfig();
-	        this.reloadConfig();
-	        this.registerCommand("join", new JoinCommand(this));
-	        registerEvents((Plugin)this, new UpdateJoinEvent(this));
-	        registerEvents((Plugin)this, new JoinEvent(this));
-	        registerEvents(this, this);
-	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " started!");
-	        this.setEnabled(true);
-	        this.getLogger().info("JoinAnnouncements V" + VarUtilType.getVersion() + " checking for updates...");
-			if (getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
-				new UpdateChecker(this, 46673).getLatestVersion(remoteVersion -> {
-					getLogger().info("Checking for Updates ...");
+    public void onEnable() {
+        final String version = this.getDescription().getVersion();
 
-					if (getDescription().getVersion().equalsIgnoreCase(remoteVersion)) {
-						getLogger().info("No new version available");
-					} else {
-						getLogger().warning(String.format("Newest version: %s is out! You are running version: %s", remoteVersion, getDescription().getVersion()));
-						getLogger().warning("Please Update Here: http://www.spigotmc.org/resources/46673");
-					}
-				});
-			}
-	    }
-	    
-	    public static void registerEvents(final Plugin plugin, final Listener... listeners) {
-	        for (final Listener listener : listeners) {
-	            Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
-	        }
-	    }
+        this.getLogger().info(String.format("JoinAnnouncements v%s starting ...", version));
 
-	    private void registerCommand(final String command, final CommandExecutor executor) {
-			this.getCommand(command).setExecutor(executor);
-		}
-	    
-	    @SuppressWarnings({ "unchecked", "rawtypes"})
-		public static Join getPlugin() {
-	        return (Join)getPlugin((Class) Join.class);
-	    }
-	    
-	    public static Plugin getPlugin2() {
-	        return (Plugin) Join.plugin;
-	    }
-	}
+        this.saveDefaultConfig();
+        this.reloadConfig();
 
+        this.getLogger().info(String.format("JoinAnnouncements v%s loading commands ...", version));
+
+        this.registerCommand("join", new JoinCommand(this));
+
+        this.getLogger().info(String.format("JoinAnnouncements v%s loading events ...", version));
+
+        this.registerEvents(this, new UpdateJoinEvent(this), new JoinEvent(this));
+
+        this.getLogger().info(String.format("JoinAnnouncements v%s started ...", version));
+
+        if (getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
+            new UpdateChecker(this, 46673).getLatestVersion(remoteVersion -> {
+                getLogger().info("Checking for Updates ...");
+
+                if (getDescription().getVersion().equalsIgnoreCase(remoteVersion)) {
+                    getLogger().info("No new version available");
+                } else {
+                    getLogger().warning(String.format("Newest version: %s is out! You are running version: %s", remoteVersion, getDescription().getVersion()));
+                    getLogger().warning("Please Update Here: http://www.spigotmc.org/resources/46673");
+                }
+            });
+        }
+    }
+
+    private void registerEvents(final Plugin plugin, final Listener... listeners) {
+        for (final Listener listener : listeners) {
+            Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
+        }
+    }
+
+    private void registerCommand(final String command, final CommandExecutor executor) {
+        this.getCommand(command).setExecutor(executor);
+    }
+
+}
