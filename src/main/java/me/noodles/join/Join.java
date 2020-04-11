@@ -1,9 +1,11 @@
 package me.noodles.join;
 
+import me.noodles.join.commands.JoinCommand;
 import me.noodles.join.listeners.JoinEvent;
 import me.noodles.join.listeners.UpdateJoinEvent;
 import me.noodles.join.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -20,6 +22,7 @@ public class Join extends JavaPlugin implements Listener {
 	        this.getLogger().info("JoinAnnouncements  V" + VarUtilType.getVersion() + " starting...");
 	        this.saveDefaultConfig();
 	        this.reloadConfig();
+	        this.registerCommand("join", new JoinCommand(this));
 	        registerEvents((Plugin)this, new UpdateJoinEvent(this));
 	        registerEvents((Plugin)this, new JoinEvent(this));
 	        registerEvents(this, this);
@@ -45,6 +48,10 @@ public class Join extends JavaPlugin implements Listener {
 	            Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
 	        }
 	    }
+
+	    private void registerCommand(final String command, final CommandExecutor executor) {
+			this.getCommand(command).setExecutor(executor);
+		}
 	    
 	    @SuppressWarnings({ "unchecked", "rawtypes"})
 		public static Join getPlugin() {

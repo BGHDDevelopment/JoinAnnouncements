@@ -3,3 +3,7 @@ version: ${project.version}
 main: me.noodles.join.Join
 authors: [BGHDDevelopment]
 website: https://bghddevelopment.com/
+commands:
+  join:
+    description: JoinAnnouncements command
+    usage: /<command> reload
