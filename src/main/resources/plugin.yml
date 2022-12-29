@@ -1,9 +1,5 @@
 name: JoinAnnouncements
-version: ${project.version}
-main: me.noodles.join.Join
-authors: [BGHDDevelopment]
+version: 0.4
+main: com.bghdevelopment.join.JoinAnnouncements
+author: BGHDDevelopmentLLC
 website: https://bghddevelopment.com/
-commands:
-  join:
-    description: JoinAnnouncements command
-    usage: /<command> reload
